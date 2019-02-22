@@ -1,0 +1,2 @@
+-PoolArea: Only 6 values in this column. Get rid of.
+-
