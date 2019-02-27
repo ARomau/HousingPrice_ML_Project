@@ -28,7 +28,6 @@ def normtesttab(x):
 
 normtesttab(train_fe['GarageScore'])
 normtesttab(train_fe['TotalSF'])
-normtesttab(train_fe['GrLivArea'])
 normtesttab(train_fe['SalePrice'])
 
 #https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html
@@ -41,11 +40,6 @@ xt, maxlog, interval = stats.boxcox(train_fe['TotalSF'], alpha=0.05)
 print("lambda = {:g}".format(maxlog))
 # Power transform with 0.25
 train_fe['TotalSF'] = (train_fe['TotalSF'] + abs(min(train_fe['GarageScore']))+1)**0.25
-
-xt, maxlog, interval = stats.boxcox(train_fe['GrLivArea'], alpha=0.05)
-print("lambda = {:g}".format(maxlog))
-# Power transform with -0.25
-#train_fe['GrLivArea'] = (train_fe['GrLivArea'] + abs(min(train_fe['GarageScore']))+1)**-0.25
 
 xt, maxlog, interval = stats.boxcox(train_fe['SalePrice'], alpha=0.05)
 print("lambda = {:g}".format(maxlog))
@@ -65,4 +59,4 @@ scaled_features = pd.DataFrame(scaler.fit_transform(train_fe),
 #scaled_features.hist(figsize=(25, 25))
 
 import pandas as pd
-#train_fe.to_csv("data/cleaned_standardized_fe.csv", index = False)
+train_fe.to_csv("data/cleaned_standardized_TEST.csv", index = False)
