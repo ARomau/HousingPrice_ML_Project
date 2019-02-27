@@ -5,7 +5,7 @@ Created on Mon Feb 25 22:50:38 2019
 
 @author: stellakim
 """
-
+# cd ~/Documents/NYC\ Data\ Science\ Academy/HousingPrice_ML_Project/
 train_fe = train_data.copy()
 
 #Set Feature Engineering Flag
@@ -356,7 +356,7 @@ if (flag == 1):
 #BsmtUnfSF
 #Create interaction feature: Bsmt_fin_perc = (TotalBsmtSF - BsmtUnfSF)/TotalBsmtSF
 if (flag == 1):
-    train_fe['Bsmt_fin_perc'] = (train_fe['TotalBsmtSF']-train_fe['BsmtUnfSF'])/train_fe['TotalBsmtSF']
+    train_fe['Bsmt_fin_perc'] = ((train_fe['TotalBsmtSF']-train_fe['BsmtUnfSF'])/train_fe['TotalBsmtSF']).fillna(0)
     #Remove Columns
     train_fe = train_fe.drop('BsmtUnfSF', axis = 1)
 

@@ -7,9 +7,6 @@ Created on Sat Feb 23 14:50:48 2019
 """
 import numpy as np
 import pandas as pd
-from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-
 # cd ~/Documents/NYC\ Data\ Science\ Academy/HousingPrice_ML_Project/
 train_data = pd.read_csv("data/train.csv")
 train_data = train_data.drop("Id", axis = 1)
@@ -123,54 +120,6 @@ train_data[['LotFrontage','LotArea']].corr()
 pd.concat([train_data['LotFrontage'], np.log(train_data['LotArea'])], axis = 1).corr()
 
 train_data['LotFrontage'] = np.log(train_data['LotArea'])
-
-
-#import seaborn as sns
-#import matplotlib.pyplot as plt
-
-#np.std(train_data['LotFrontage'])
-
-#sns.regplot('LotFrontage', np.log(train_data['LotArea']), data = train_data)
-
-
-
-
-###############################################################################
-########################## KNN IMPUTATION #####################################
-###############################################################################
-
-# First, standardize our dataset
-num_features = ['LotFrontage', 'LotArea', 'MasVnrArea', 'BsmtFinSF1','BsmtFinSF2', 'BsmtUnfSF',
- 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF','LowQualFinSF', 'GrLivArea', 'BsmtFullBath',
- 'BsmtHalfBath', 'FullBath', 'HalfBath', 'BedroomAbvGr', 'KitchenAbvGr',
- 'TotRmsAbvGrd', 'Fireplaces', 'GarageCars', 'GarageArea', 'WoodDeckSF', 'OpenPorchSF',
- 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal', 'SalePrice']
-
-num_features = train_data[num_features]
-scaler = StandardScaler()
-scaled_LF = pd.DataFrame(scaler.fit_transform(pd.DataFrame(num_features['LotFrontage'][num_features['LotFrontage'].notna()])),
-             columns = ['LotFrontage'],
-             index = num_features[num_features['LotFrontage'].notna()].index)
-na_LF = pd.DataFrame(num_features['LotFrontage'][num_features['LotFrontage'].isna()],
-                                  columns = ['LotFrontage'],
-                                  index = num_features[num_features['LotFrontage'].isna()].index)
-scaled_LF = scaled_LF.append(na_LF).sort_index()
-
-scaled_rest = pd.DataFrame(scaler.fit_transform(num_features.loc[:, "LotArea":]),
-             columns = ['LotArea', 'MasVnrArea', 'BsmtFinSF1','BsmtFinSF2', 'BsmtUnfSF',
- 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF','LowQualFinSF', 'GrLivArea', 'BsmtFullBath',
- 'BsmtHalfBath', 'FullBath', 'HalfBath', 'BedroomAbvGr', 'KitchenAbvGr',
- 'TotRmsAbvGrd', 'Fireplaces', 'GarageCars', 'GarageArea', 'WoodDeckSF', 'OpenPorchSF',
- 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal', 'SalePrice'])
-
-scaled_num_features = pd.concat([scaled_LF, scaled_rest], axis = 1)
-
-# Replacing train data with scaled train data
-for col in scaled_num_features.columns:
-    if col in train_data.columns:
-        train_data[col] = scaled_num_features[col]
-
-del (col, num_features, scaled_LF, na_LF, scaled_rest, scaled_num_features)
 
 
 train_data.columns
