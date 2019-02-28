@@ -43,9 +43,9 @@ train = pd.concat([scaled_features, scaled_price], axis = 1)
 
 # Standardize test set
 test_fe = pd.read_csv("data/transformed_pre-standardized_fe_TEST.csv")
-housestyle = pd.DataFrame(np.zeros(len(train_fe)), columns = ["HouseStyle_2.5Fin"])
-test_fe = pd.concat([train_fe, housestyle], axis = 1)
-test_fe = train_fe.reindex(columns = colnames)
+housestyle = pd.DataFrame(np.zeros(len(test_fe)), columns = ["HouseStyle_2.5Fin"])
+test_fe = pd.concat([test_fe, housestyle], axis = 1)
+test_fe = test_fe.reindex(columns = colnames)
 
 test = pd.DataFrame(scaler.transform(test_fe),
              columns = test_fe.columns)
