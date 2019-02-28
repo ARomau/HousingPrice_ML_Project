@@ -10,3 +10,11 @@ from sklearn.metrics import mean_squared_error
 
 def rmse(actual, pred):
     return np.sqrt(mean_squared_error(actual, pred))
+
+
+def standardize(input):
+    return (input - input.mean()) / input.std()
+    
+    
+def unstandardize(input):
+    return (input*train_fe[input.columns].std() + train_fe[input.columns].mean())
