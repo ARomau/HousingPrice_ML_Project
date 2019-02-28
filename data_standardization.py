@@ -40,13 +40,15 @@ train_fe['GarageScore'] = (train_fe['GarageScore'] + abs(min(train_fe['GarageSco
 xt, maxlog, interval = stats.boxcox(train_fe['TotalSF'], alpha=0.05)
 print("lambda = {:g}".format(maxlog))
 # Power transform with 0.25
-train_fe['TotalSF'] = (train_fe['TotalSF'] + abs(min(train_fe['GarageScore']))+1)**0.25
+train_fe['TotalSF'] = (train_fe['TotalSF'] + abs(min(train_fe['TotalSF']))+1)**0.25
 
 xt, maxlog, interval = stats.boxcox(train_fe['SalePrice'], alpha=0.05)
 print("lambda = {:g}".format(maxlog))
 # Power transform with -0.5
-train_fe['SalePrice'] = (train_fe['SalePrice'] + abs(min(train_fe['GarageScore']))+1)**-0.1
+train_fe['SalePrice'] = (train_fe['SalePrice'] + abs(min(train_fe['SalePrice']))+1)**-0.1
 
+
+## To untransform sale price, we should raise the transformed value to -10, and then subtract 1
 
 ###############################################################################
 ############################# STANDARDIZATION #################################
@@ -77,15 +79,15 @@ scaled_features = pd.concat([scaled_features, scaled_price], axis = 1)
 #dir(train.columns)
 
 #train.columns.where(~train.columns.isin(train_fe.columns)).dropna()
-#housestyle = pd.DataFrame(np.zeros(len(test)), columns = ["HouseStyle_2.5Fin"])
+#housestyle = pd.DataFrame(np.zeros(len(train_fe)), columns = ["HouseStyle_2.5Fin"])
 #train_fe = pd.concat([train_fe, housestyle], axis = 1)
 #train_fe = train_fe.reindex(columns = colnames)
 #
 #
 #scaled_features = pd.DataFrame(scaler.transform(train_fe),
 #             columns = train_fe.columns)
-#
-#
-##scaled_features.hist(figsize=(25, 25))
+
+
+#scaled_features.hist(figsize=(25, 25))
 #scaled_features.to_csv("data/cleaned_standardized_TEST.csv", index = False)
 
