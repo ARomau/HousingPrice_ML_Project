@@ -9,6 +9,7 @@ Created on Tue Feb 26 17:41:58 2019
 
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet, RidgeCV, LassoCV
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
