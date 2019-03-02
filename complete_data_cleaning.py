@@ -549,11 +549,9 @@ print("lambda = {:g}".format(maxlog))
 # Power transform with 0.8
 train['GarageArea'] = (train['GarageArea'] + abs(min(train['GarageArea']))+1)**0.8
 
-xt, maxlog, interval = stats.boxcox(train['SalePrice'], alpha=0.05)
-print("lambda = {:g}".format(maxlog))
-# Power transform with -0.5
-train['SalePrice'] = (train['SalePrice'])**-0.1
-## To untransform sale price, we should raise the transformed value to -10
+# Log transform SalePrice
+train['SalePrice'] = np.log(train['SalePrice'])
+## To untransform sale price, np.exp(prediction price)
 
 
 
