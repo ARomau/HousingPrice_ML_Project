@@ -506,8 +506,9 @@ df_fe.columns[df_fe.isnull().any(axis = 0)]
 
 train = df_fe.drop(index = test_id)
 train = pd.concat([train.drop('SalePrice', axis = 1), train['SalePrice']], axis = 1)
+train.reset_index(drop = True, inplace = True)
 test = df_fe.drop(index = train_id).drop('SalePrice', axis = 1)
-
+test.reset_index(drop = True, inplace = True)
 
 num_features = ['LotFrontage', 'LotArea', 'MasVnrArea', 'BsmtFinSF1','BsmtFinSF2',
                 'BsmtUnfSF', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF','LowQualFinSF',
