@@ -20,15 +20,16 @@ import matplotlib.pyplot as plt
 ## cd ~/Documents/NYC\ Data\ Science\ Academy/HousingPrice_ML_Project/
 
 actual_price = pd.read_csv('data/train.csv')
-actual_price = np.array(actual_price['SalePrice'].astype(float))
+actual_price = np.array(actual_price['SalePrice'].drop(index = [197, 523, 1298]).astype(float))
+#actual_price = np.array(actual_price['SalePrice'])
 scaler2 = StandardScaler()
 scaler2.fit(np.log(actual_price).reshape(-1,1))
 
 train = pd.read_csv("data/train_clean_std_full.csv")
 test = pd.read_csv("data/test_clean_std_full.csv")
 
-features = train.drop(columns = 'SalePrice')
-price = train['SalePrice']
+features = train.drop(columns = 'SalePrice', index = [197, 523, 1298])
+price = train['SalePrice'].drop(index = [197, 523, 1298])
 features_test = test
 
 
@@ -41,21 +42,21 @@ elastic_net.fit(features, price)
 #print('the elastic_net intercept is: %.2f' %(elastic_net.intercept_))
 pd.Series(elastic_net.coef_, index=features.columns)
 
-alphaSize  = 40
-rhoSize    = 30
-alphas = np.linspace(1e-2, 10, alphaSize)
-rhos   = np.linspace(0.001, 0.5, rhoSize) #avoid very small rho by setting 0.1
-elastic_net.set_params(normalize=False)
-coefs  = np.zeros((alphaSize, rhoSize, 254))
-scores = np.zeros((alphaSize, rhoSize))
-for alphaIdx, alpha in enumerate(alphas):
-    for rhoIdx, rho in enumerate(rhos):
-        elastic_net.set_params(alpha = alpha, l1_ratio = rho)
-        elastic_net.fit(features, price)  
-        coefs[alphaIdx, rhoIdx, :] = elastic_net.coef_
-        scores[alphaIdx, rhoIdx] = elastic_net.score(features, price)
-net_scores = pd.DataFrame(scores, index = alphas, columns = rhos)
-max(net_scores.idxmax())
+#alphaSize  = 40
+#rhoSize    = 30
+#alphas = np.linspace(1e-2, 10, alphaSize)
+#rhos   = np.linspace(0.001, 0.5, rhoSize) #avoid very small rho by setting 0.1
+#elastic_net.set_params(normalize=False)
+#coefs  = np.zeros((alphaSize, rhoSize, 254))
+#scores = np.zeros((alphaSize, rhoSize))
+#for alphaIdx, alpha in enumerate(alphas):
+#    for rhoIdx, rho in enumerate(rhos):
+#        elastic_net.set_params(alpha = alpha, l1_ratio = rho)
+#        elastic_net.fit(features, price)  
+#        coefs[alphaIdx, rhoIdx, :] = elastic_net.coef_
+#        scores[alphaIdx, rhoIdx] = elastic_net.score(features, price)
+#net_scores = pd.DataFrame(scores, index = alphas, columns = rhos)
+#max(net_scores.idxmax())
 
 
 #plt.rcParams['figure.figsize'] = (10,5)

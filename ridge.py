@@ -20,7 +20,8 @@ import matplotlib.pyplot as plt
 ## cd ~/Documents/NYC\ Data\ Science\ Academy/HousingPrice_ML_Project/
 
 actual_price = pd.read_csv('data/train.csv')
-actual_price = np.array(actual_price['SalePrice'].drop(index = [197, 523, 1298]).astype(float))
+actual_price = np.array(actual_price['SalePrice'].drop(index = pd.Index(num_features[(z > threshold).any(axis=1)].index.tolist())).astype(float))
+#actual_price = np.array(actual_price['SalePrice'])
 scaler2 = StandardScaler()
 scaler2.fit(np.log(actual_price).reshape(-1,1))
 
@@ -35,6 +36,10 @@ test = pd.read_csv("data/test_clean_std_full.csv")
 ## Use RidgeCV instead of GridSearchCV to find the optimal alpha
 
 #Ridge
+#features = train.drop(columns = 'SalePrice', index = [197, 523, 1298])
+#price = train['SalePrice'].drop(index = [197, 523, 1298])
+#features_test = test
+
 features = train.drop(columns = 'SalePrice')
 price = train['SalePrice']
 features_test = test
@@ -105,4 +110,4 @@ plt.legend()
 
 ridge_pred = pd.DataFrame(ridge_pred, columns = ['SalePrice'])
 ridge_cv_submission = pd.concat([test_id, ridge_pred], axis = 1)
-#ridge_cv_submission.to_csv("data/full_197_1298_outliersrmvd_ridge_cv5_submission.csv", index = False)
+#ridge_cv_submission.to_csv("data/reduced_outliersrmvd_ridge_cv5_submission.csv", index = False)

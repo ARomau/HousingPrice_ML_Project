@@ -21,14 +21,15 @@ import matplotlib.pyplot as plt
 
 actual_price = pd.read_csv('data/train.csv')
 actual_price = np.array(actual_price['SalePrice'].drop(index = [197, 523, 1298]).astype(float))
+#actual_price = np.array(actual_price['SalePrice'])
 scaler2 = StandardScaler()
 scaler2.fit(np.log(actual_price).reshape(-1,1))
 
 train = pd.read_csv("data/train_clean_std_full.csv")
 test = pd.read_csv("data/test_clean_std_full.csv")
 
-features = train.drop(columns = 'SalePrice')
-price = train['SalePrice']
+features = train.drop(columns = 'SalePrice', index = [197, 523, 1298])
+price = train['SalePrice'].drop(index = [197, 523, 1298])
 features_test = test
 
 ###############################################################################
