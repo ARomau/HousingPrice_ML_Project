@@ -1,0 +1,24 @@
+,VIF Factor,features
+2,17.4,LotFrontage
+4,84.1,OverallQual
+5,50.3,OverallCond
+6,24966.5,YearBuilt
+7,24568.9,YearRemodAdd
+9,inf,BsmtFinSF1
+10,inf,BsmtFinSF2
+11,inf,BsmtUnfSF
+12,inf,TotalBsmtSF
+13,inf,1stFlrSF
+14,inf,2ndFlrSF
+15,inf,LowQualFinSF
+16,inf,GrLivArea
+19,28.8,FullBath
+21,34.5,BedroomAbvGr
+22,42.5,KitchenAbvGr
+23,84.8,TotRmsAbvGrd
+25,26870.4,GarageYrBlt
+26,40.7,GarageCars
+27,35.2,GarageArea
+35,6.8,MoSold
+36,25816.0,YrSold
+37,31.5,SalePrice

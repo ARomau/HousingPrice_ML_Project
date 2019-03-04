@@ -19,11 +19,11 @@ train = pd.read_csv('./data/train.csv')
 #train.info()
 #print('Number of Rows:', max(df.count()))
 #Print Missing Rows for each column
-#print(df.isna().sum())
+print(train.isna().sum())
 
-continuous_cols = train._get_numeric_data().columns
+#continuous_cols = train._get_numeric_data().columns
 #print(continuous_cols)
-X = train[continuous_cols]
+#X = train[continuous_cols]
 #X = X.dropna()
 #y = train['SalePrice']
 #train_cont.to_csv('train_cont.csv',encoding='utf-8')
@@ -35,12 +35,12 @@ X = train[continuous_cols]
 #plt.show();
 ########################################################################################
 # For each X, calculate VIF and save in dataframe
-vif = pd.DataFrame()
-vif["VIF Factor"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
-vif["features"] = X.columns
-vif = vif.round(1)
-mask = [True if x > 5 else False for x in vif['VIF Factor']]
-colinear = vif[mask]
-colinear.to_csv('colinear.csv',encoding='utf-8')
+#vif = pd.DataFrame()
+#vif["VIF Factor"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+#vif["features"] = X.columns
+#vif = vif.round(1)
+#mask = [True if x > 5 else False for x in vif['VIF Factor']]
+#colinear = vif[mask]
+#colinear.to_csv('colinear.csv',encoding='utf-8')
 #######################################################################################
 
