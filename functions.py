@@ -18,3 +18,7 @@ def standardize(input):
     
 def unstandardize(input):
     return (input*train_fe[input.columns].std() + train_fe[input.columns].mean())
+
+
+def rmse_kaggle(actual, pred):
+    return np.sqrt(np.mean((np.log(actual) - np.log(pred))**2))
